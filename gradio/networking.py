@@ -50,7 +50,7 @@ def url_ok(url: str) -> bool:
         for _ in range(5):
             with warnings.catch_warnings():
                 warnings.filterwarnings("ignore")
-                r = httpx.head(url, timeout=3, verify=False)
+                r = httpx.head(url, timeout=3, verify=True)
             if r.status_code in (200, 401, 302):  # 401 or 302 if auth is set
                 return True
             time.sleep(0.500)
