@@ -4,7 +4,7 @@ import requests
 from torchvision import transforms
 
 model = torch.hub.load('pytorch/vision:v0.6.0', 'resnet18', pretrained=True).eval()
-response = requests.get("https://git.io/JJkYN")
+response = requests.get("https://git.io/JJkYN", timeout=60)
 labels = response.text.split("\n")
 
 def predict(inp):

@@ -7,7 +7,7 @@ import gradio as gr
 inception_net = tf.keras.applications.MobileNetV2()  # load the model
 
 # Download human-readable labels for ImageNet.
-response = requests.get("https://git.io/JJkYN")
+response = requests.get("https://git.io/JJkYN", timeout=60)
 labels = response.text.split("\n")
 
 

@@ -116,7 +116,7 @@ def run_command(
     with open(_demo_path) as f:
         demo = f.read()
 
-    pypi_exists = requests.get(f"https://pypi.org/pypi/{name}/json").status_code
+    pypi_exists = requests.get(f"https://pypi.org/pypi/{name}/json", timeout=60).status_code
 
     pypi_exists = pypi_exists == 200 or False
 

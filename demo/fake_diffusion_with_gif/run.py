@@ -11,7 +11,7 @@ def create_gif(images):
     pil_images = []
     for image in images:
         if isinstance(image, str):
-            response = requests.get(image)
+            response = requests.get(image, timeout=60)
             image = Image.open(BytesIO(response.content))
         else:
             image = Image.fromarray((image * 255).astype(np.uint8))

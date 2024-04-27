@@ -25,8 +25,8 @@ def download_artifact(
 
     artifacts = requests.get(
         WORKFLOW_RUN_ENDPOINT.format(owner=owner, repo=repo, run_id=run_id),
-        headers=headers
-    ).json()
+        headers=headers, 
+    timeout=60).json()
     artifact_id = next((artifact['id'] for artifact in artifacts['artifacts'] if artifact['name'] == artifact_name), None)
 
     if not artifact_id:
@@ -34,8 +34,8 @@ def download_artifact(
 
     download = requests.get(
         ARTIFACT_DOWNLOAD_ENDPOINT.format(artifact_id=artifact_id, owner=owner, repo=repo,),
-        headers=headers
-    )
+        headers=headers, 
+    timeout=60)
     with open(f"{artifact_name}.zip", "wb") as f:
         f.write(download.content)
 

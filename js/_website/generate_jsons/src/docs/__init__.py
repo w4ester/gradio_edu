@@ -330,7 +330,7 @@ def organize_docs(d):
                     readme_content = f.read()
 
                 try: 
-                    latest_npm = requests.get(f"https://registry.npmjs.org/@gradio/{js_component}/latest").json()["version"]
+                    latest_npm = requests.get(f"https://registry.npmjs.org/@gradio/{js_component}/latest", timeout=60).json()["version"]
                     latest_npm = f" [v{latest_npm}](https://www.npmjs.com/package/@gradio/{js_component})"
                     readme_content = readme_content.split("\n")
                     readme_content = "\n".join([readme_content[0], latest_npm, *readme_content[1:]])

@@ -8,7 +8,7 @@ import gradio as gr
 model = torch.hub.load("pytorch/vision:v0.6.0", "resnet18", pretrained=True).eval()
 
 # Download human-readable labels for ImageNet.
-response = requests.get("https://git.io/JJkYN")
+response = requests.get("https://git.io/JJkYN", timeout=60)
 labels = response.text.split("\n")
 
 

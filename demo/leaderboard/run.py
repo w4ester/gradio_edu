@@ -6,7 +6,7 @@ path = f"https://huggingface.co/api/spaces"
 
 
 def get_blocks_party_spaces():
-    r = requests.get(path)
+    r = requests.get(path, timeout=60)
     d = r.json()
     spaces = [SpaceInfo(**x) for x in d]
     blocks_spaces = {}
