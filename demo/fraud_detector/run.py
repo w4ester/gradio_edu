@@ -1,10 +1,10 @@
-import random
 import os
 import gradio as gr
+import secrets
 
 
 def fraud_detector(card_activity, categories, sensitivity):
-    activity_range = random.randint(0, 100)
+    activity_range = secrets.SystemRandom().randint(0, 100)
     drop_columns = [
         column for column in ["retail", "food", "other"] if column not in categories
     ]

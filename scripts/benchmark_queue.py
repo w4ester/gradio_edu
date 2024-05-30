@@ -19,7 +19,6 @@ to with the -o parameter:
 import argparse
 import asyncio
 import json
-import random
 import time
 
 import pandas as pd
@@ -27,6 +26,7 @@ import websockets
 
 import gradio as gr
 from gradio_client import media_data
+import secrets
 
 
 def identity_with_sleep(x):
@@ -70,7 +70,7 @@ FN_INDEX_TO_DATA = {
 async def get_prediction(host):
     async with websockets.connect(host) as ws:
         completed = False
-        name = random.choice(["image", "text", "audio", "video"])
+        name = secrets.choice(["image", "text", "audio", "video"])
         fn_to_hit, data = FN_INDEX_TO_DATA[name]
         start = time.time()
 

@@ -1,6 +1,6 @@
 import gradio as gr
 import time
-import random
+import secrets
 
 n_calls = 0
 
@@ -11,7 +11,7 @@ def get_random_number():
         raise gr.Error("This is a gradio error")
     n_calls += 1
     time.sleep(5)
-    return random.randrange(1, 10)
+    return secrets.SystemRandom().randrange(1, 10)
 
 
 with gr.Blocks() as demo:

@@ -1,14 +1,13 @@
 # This demo needs to be run from the repo folder.
 # python demo/fake_gan/run.py
-import random
 
 import gradio as gr
+import secrets
 
 
 def fake_gan():
     images = [
-        (random.choice(
-            [
+        (secrets.choice([
                 "http://www.marketingtool.online/en/face-generator/img/faces/avatar-1151ce9f4b2043de0d2e3b7826127998.jpg",
                 "http://www.marketingtool.online/en/face-generator/img/faces/avatar-116b5e92936b766b7fdfc242649337f7.jpg",
                 "http://www.marketingtool.online/en/face-generator/img/faces/avatar-1163530ca19b5cebe1b002b8ec67b6fc.jpg",

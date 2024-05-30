@@ -12,9 +12,9 @@ from __future__ import annotations
 import argparse
 import importlib
 import os
-import random
 
 import gradio as gr
+import secrets
 
 parser = argparse.ArgumentParser()
 parser.add_argument("num_demos", help="number of demos to launch", type=int, default=4)
@@ -28,7 +28,7 @@ demos_list.remove('streaming_wav2vec')
 demos_list.remove('blocks_neural_instrument_coding')
 demos_list.remove('flagged')
 
-for d, demo_name in enumerate(random.sample(demos_list, args.num_demos)):
+for d, demo_name in enumerate(secrets.SystemRandom().sample(demos_list, args.num_demos)):
     print(f"Launching demo {d+1}/{args.num_demos}: {demo_name}")
     # import the run.py file from inside the directory specified by args.demo_name
     run = importlib.import_module(f"{demo_name}.run")

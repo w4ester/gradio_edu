@@ -1,6 +1,6 @@
 import gradio as gr
 import pandas as pd
-import random
+import secrets
 
 simple = pd.DataFrame(
     {
@@ -12,8 +12,7 @@ simple = pd.DataFrame(
 fake_barley = pd.DataFrame(
     {
         "site": [
-            random.choice(
-                [
+            secrets.choice([
                     "University Farm",
                     "Waseca",
                     "Morris",
@@ -24,10 +23,9 @@ fake_barley = pd.DataFrame(
             )
             for _ in range(120)
         ],
-        "yield": [random.randint(25, 75) for _ in range(120)],
+        "yield": [secrets.SystemRandom().randint(25, 75) for _ in range(120)],
         "variety": [
-            random.choice(
-                [
+            secrets.choice([
                     "Manchuria",
                     "Wisconsin No. 38",
                     "Glabron",
@@ -39,8 +37,7 @@ fake_barley = pd.DataFrame(
             for _ in range(120)
         ],
         "year": [
-            random.choice(
-                [
+            secrets.choice([
                     "1931",
                     "1932",
                 ]

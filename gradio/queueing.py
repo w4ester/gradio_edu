@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import copy
 import os
-import random
 import time
 import traceback
 import uuid
@@ -31,6 +30,7 @@ from gradio.server_messages import (
     ProgressUnit,
 )
 from gradio.utils import LRUCache, run_coro_in_background, safe_get_lock, set_task_name
+import secrets
 
 if TYPE_CHECKING:
     from gradio.blocks import BlockFunction
@@ -248,7 +248,7 @@ class Queue:
 
     def get_events(self) -> tuple[list[Event], bool, str] | None:
         concurrency_ids = list(self.event_queue_per_concurrency_id.keys())
-        random.shuffle(concurrency_ids)
+        secrets.SystemRandom().shuffle(concurrency_ids)
         for concurrency_id in concurrency_ids:
             event_queue = self.event_queue_per_concurrency_id[concurrency_id]
             if len(event_queue.queue) and (

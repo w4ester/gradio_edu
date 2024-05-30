@@ -5,7 +5,6 @@ import hashlib
 import inspect
 import json
 import os
-import random
 import secrets
 import string
 import sys
@@ -791,7 +790,7 @@ class Blocks(BlockContext, BlocksEvents, metaclass=BlocksMeta):
         self.favicon_path = None
         self.auth = None
         self.dev_mode = bool(os.getenv("GRADIO_WATCH_DIRS", ""))
-        self.app_id = random.getrandbits(64)
+        self.app_id = secrets.SystemRandom().getrandbits(64)
         self.upload_file_set = set()
         self.temp_file_sets = [self.upload_file_set]
         self.title = title

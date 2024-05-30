@@ -2,10 +2,10 @@
 
 import datetime
 import os
-import random
 
 import gradio as gr
 from gradio.components import Markdown as m
+import secrets
 
 
 def get_time():
@@ -14,11 +14,11 @@ def get_time():
 
 
 def generate_recording():
-    return random.choice(["new-sax-1.mp3", "new-sax-1.wav"])
+    return secrets.choice(["new-sax-1.mp3", "new-sax-1.wav"])
 
 
 def reconstruct(audio):
-    return random.choice(["new-sax-1.mp3", "new-sax-1.wav"])
+    return secrets.choice(["new-sax-1.mp3", "new-sax-1.wav"])
 
 
 io1 = gr.Interface(

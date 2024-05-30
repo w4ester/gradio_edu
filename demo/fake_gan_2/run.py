@@ -1,9 +1,9 @@
 # This demo needs to be run from the repo folder.
 # python demo/fake_gan/run.py
-import random
 import time
 
 import gradio as gr
+import secrets
 
 
 def fake_gan(desc):
@@ -12,8 +12,7 @@ def fake_gan(desc):
     if desc == "error":
         raise ValueError("error")
     time.sleep(9)
-    image = random.choice(
-        [
+    image = secrets.choice([
             "files/cheetah1.jpg",
             "files/elephant.jpg",
             "files/tiger.jpg",

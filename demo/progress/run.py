@@ -1,10 +1,10 @@
 import gradio as gr
-import random
 import time
 import tqdm
 from datasets import load_dataset
 import shutil
 from uuid import uuid4
+import secrets
 
 with gr.Blocks() as demo:
     with gr.Row():
@@ -43,7 +43,7 @@ with gr.Blocks() as demo:
     # track iterable of unknown length
     def load_random(data, progress=gr.Progress()):
         def yielder():
-            for i in range(0, random.randint(15, 20)):
+            for i in range(0, secrets.SystemRandom().randint(15, 20)):
                 time.sleep(0.1)
                 yield None
         for img in progress.tqdm(yielder()):

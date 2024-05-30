@@ -1,5 +1,5 @@
 import gradio as gr
-import random
+import secrets
 
 sentence_list = [
     "Good morning!",
@@ -9,7 +9,7 @@ sentence_list = [
 
 
 def random_sentence():
-    return sentence_list[random.randint(0, 2)]
+    return sentence_list[secrets.SystemRandom().randint(0, 2)]
 
 
 demo = gr.Interface(fn=random_sentence, inputs=None, outputs="text")

@@ -1,10 +1,10 @@
 import gradio as gr
-import random
 import matplotlib.pyplot as plt
 import pandas as pd
 import shap
 import xgboost as xgb
 from datasets import load_dataset
+import secrets
 
 
 dataset = load_dataset("scikit-learn/adult-census-income")
@@ -67,12 +67,12 @@ with gr.Blocks() as demo:
             work_class = gr.Dropdown(
                 label="Workclass",
                 choices=unique_class,
-                value=lambda: random.choice(unique_class),
+                value=lambda: secrets.choice(unique_class),
             )
             education = gr.Dropdown(
                 label="Education Level",
                 choices=unique_education,
-                value=lambda: random.choice(unique_education),
+                value=lambda: secrets.choice(unique_education),
             )
             years = gr.Slider(
                 label="Years of schooling",
@@ -84,20 +84,20 @@ with gr.Blocks() as demo:
             marital_status = gr.Dropdown(
                 label="Marital Status",
                 choices=unique_marital_status,
-                value=lambda: random.choice(unique_marital_status),
+                value=lambda: secrets.choice(unique_marital_status),
             )
             occupation = gr.Dropdown(
                 label="Occupation",
                 choices=unique_occupation,
-                value=lambda: random.choice(unique_occupation),
+                value=lambda: secrets.choice(unique_occupation),
             )
             relationship = gr.Dropdown(
                 label="Relationship Status",
                 choices=unique_relationship,
-                value=lambda: random.choice(unique_relationship),
+                value=lambda: secrets.choice(unique_relationship),
             )
             sex = gr.Dropdown(
-                label="Sex", choices=unique_sex, value=lambda: random.choice(unique_sex)
+                label="Sex", choices=unique_sex, value=lambda: secrets.choice(unique_sex)
             )
             capital_gain = gr.Slider(
                 label="Capital Gain",
@@ -115,7 +115,7 @@ with gr.Blocks() as demo:
             country = gr.Dropdown(
                 label="Native Country",
                 choices=unique_country,
-                value=lambda: random.choice(unique_country),
+                value=lambda: secrets.choice(unique_country),
             )
         with gr.Column():
             label = gr.Label()

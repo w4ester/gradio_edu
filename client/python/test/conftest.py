@@ -1,10 +1,10 @@
 import inspect
-import random
 import time
 
 import gradio as gr
 import pytest
 from pydub import AudioSegment
+import secrets
 
 
 def pytest_configure(config):
@@ -166,7 +166,7 @@ def cancel_from_client_demo():
 def sentiment_classification_demo():
     def classifier(text):  # noqa: ARG001
         time.sleep(1)
-        return {label: random.random() for label in ["POSITIVE", "NEGATIVE", "NEUTRAL"]}
+        return {label: secrets.SystemRandom().random() for label in ["POSITIVE", "NEGATIVE", "NEUTRAL"]}
 
     def sleep_for_test():
         time.sleep(10)

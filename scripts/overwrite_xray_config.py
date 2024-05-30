@@ -1,13 +1,13 @@
 import gradio as gr
-import random
 import json
 import os
+import secrets
 
 def fake_func():
     return "Hello There"
 
 def xray_model(diseases, img):
-    return {disease: random.random() for disease in diseases}
+    return {disease: secrets.SystemRandom().random() for disease in diseases}
 
 def ct_model(diseases, img):
     return {disease: 0.1 for disease in diseases}

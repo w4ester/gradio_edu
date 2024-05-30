@@ -1,10 +1,10 @@
 import json
 import os
-import random
 import subprocess
 from pathlib import Path
 
 import nbformat as nbf
+import secrets
 
 GRADIO_DEMO_DIR = Path.cwd() / "demo"
 DEMOS_TO_SKIP = {"all_demos", "reset_components", "custom_path", "kitchen_sink_random"}
@@ -115,8 +115,8 @@ for demo in demos:
 
     content = json.loads(content)
     for i, cell in enumerate(content["cells"]):
-        random.seed(i)
-        cell["id"] = str(random.getrandbits(128))
+        secrets.SystemRandom().seed(i)
+        cell["id"] = str(secrets.SystemRandom().getrandbits(128))
 
     with open(output_notebook, "w", encoding="utf8") as f:
         f.write(json.dumps(content))

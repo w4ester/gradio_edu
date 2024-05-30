@@ -1,7 +1,7 @@
 import gradio as gr
 import cv2
 import numpy as np
-import random
+import secrets
 
 
 # Convert decimal color to hexadecimal color
@@ -16,9 +16,9 @@ def RGB_to_Hex(rgb):
 # Randomly generate light or dark colors
 def random_color(is_light=True):
     return (
-        random.randint(0, 127) + int(is_light) * 128,
-        random.randint(0, 127) + int(is_light) * 128,
-        random.randint(0, 127) + int(is_light) * 128,
+        secrets.SystemRandom().randint(0, 127) + int(is_light) * 128,
+        secrets.SystemRandom().randint(0, 127) + int(is_light) * 128,
+        secrets.SystemRandom().randint(0, 127) + int(is_light) * 128,
     )
 
 

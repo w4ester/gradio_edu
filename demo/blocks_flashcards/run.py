@@ -1,6 +1,6 @@
-import random
 
 import gradio as gr
+import secrets
 
 demo = gr.Blocks()
 
@@ -56,7 +56,7 @@ with demo:
         practice_btn.click(start_practice, inputs=[flashcards_table], outputs=[practice_tab, tabs])
 
         def load_new_card(flashcards):
-            card = random.choice(flashcards)
+            card = secrets.choice(flashcards)
             return (
                 card,
                 card[0],

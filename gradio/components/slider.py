@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import math
-import random
 from typing import Any, Callable
 
 from gradio_client.documentation import document
 
 from gradio.components.base import FormComponent
 from gradio.events import Events
+import secrets
 
 
 @document()
@@ -104,7 +104,7 @@ class Slider(FormComponent):
 
     def get_random_value(self):
         n_steps = int((self.maximum - self.minimum) / self.step)
-        step = random.randint(0, n_steps)
+        step = secrets.SystemRandom().randint(0, n_steps)
         value = self.minimum + step * self.step
         # Round to number of decimals in step so that UI doesn't display long decimals
         n_decimals = max(str(self.step)[::-1].find("."), 0)

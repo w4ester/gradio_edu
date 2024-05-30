@@ -1,8 +1,8 @@
-import random
 import gradio as gr
+import secrets
 
 def random_response(message, history):
-    return random.choice(["Yes", "No"])
+    return secrets.choice(["Yes", "No"])
 
 demo = gr.ChatInterface(random_response)
 
