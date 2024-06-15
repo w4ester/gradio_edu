@@ -4,8 +4,6 @@ import importlib
 import re
 from pathlib import Path
 from typing import Any, Optional
-
-import requests
 import tomlkit as toml
 from typer import Argument, Option
 from typing_extensions import Annotated
@@ -15,6 +13,7 @@ from gradio.cli.commands.display import LivePanelDisplay
 
 from ._docs_assets import css
 from ._docs_utils import extract_docstrings, get_deep, make_markdown, make_space
+from security import safe_requests
 
 
 def _docs(
@@ -125,7 +124,7 @@ def run_command(
     with open(_demo_path) as f:
         demo = f.read()
 
-    pypi_exists = requests.get(f"https://pypi.org/pypi/{name}/json").status_code
+    pypi_exists = safe_requests.get(f"https://pypi.org/pypi/{name}/json").status_code
 
     pypi_exists = pypi_exists == 200 or False
 

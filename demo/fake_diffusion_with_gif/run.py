@@ -3,15 +3,15 @@ import numpy as np
 import time
 import os
 from PIL import Image
-import requests
 from io import BytesIO
+from security import safe_requests
 
 
 def create_gif(images):
     pil_images = []
     for image in images:
         if isinstance(image, str):
-            response = requests.get(image)
+            response = safe_requests.get(image)
             image = Image.open(BytesIO(response.content))
         else:
             image = Image.fromarray((image * 255).astype(np.uint8))

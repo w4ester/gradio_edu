@@ -1,6 +1,5 @@
 import argparse
-
-import requests
+from security import safe_requests
 
 WORKFLOW_RUN_ENDPOINT = "https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts"
 ARTIFACT_DOWNLOAD_ENDPOINT = "https://api.github.com/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip"
@@ -23,8 +22,7 @@ def download_artifact(
         "X-GitHub-Api-Version": "2022-11-28"
     }
 
-    artifacts = requests.get(
-        WORKFLOW_RUN_ENDPOINT.format(owner=owner, repo=repo, run_id=run_id),
+    artifacts = safe_requests.get(WORKFLOW_RUN_ENDPOINT.format(owner=owner, repo=repo, run_id=run_id),
         headers=headers
     ).json()
     artifact_id = next((artifact['id'] for artifact in artifacts['artifacts'] if artifact['name'] == artifact_name), None)
@@ -32,8 +30,7 @@ def download_artifact(
     if not artifact_id:
         raise ValueError(f"Cannot find {artifact_name}! {artifacts} {owner} {repo} {run_id}")
 
-    download = requests.get(
-        ARTIFACT_DOWNLOAD_ENDPOINT.format(artifact_id=artifact_id, owner=owner, repo=repo,),
+    download = safe_requests.get(ARTIFACT_DOWNLOAD_ENDPOINT.format(artifact_id=artifact_id, owner=owner, repo=repo,),
         headers=headers
     )
     with open(f"{artifact_name}.zip", "wb") as f:
