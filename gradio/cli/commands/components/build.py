@@ -19,6 +19,7 @@ from gradio.cli.commands.components._docs_utils import (
 from gradio.cli.commands.components.docs import run_command
 from gradio.cli.commands.components.install_component import _get_executable_path
 from gradio.cli.commands.display import LivePanelDisplay
+from security import safe_command
 
 gradio_template_path = Path(gradio.__file__).parent / "templates" / "frontend"
 
@@ -129,8 +130,7 @@ def _build(
                     "node must be installed in order to run build command."
                 )
 
-            gradio_node_path = subprocess.run(
-                [node, "-e", "console.log(require.resolve('@gradio/preview'))"],
+            gradio_node_path = safe_command.run(subprocess.run, [node, "-e", "console.log(require.resolve('@gradio/preview'))"],
                 cwd=Path(component_directory / "frontend"),
                 check=False,
                 capture_output=True,
@@ -155,8 +155,7 @@ def _build(
                 "--python-path",
                 python_path,
             ]
-            pipe = subprocess.run(
-                node_cmds, capture_output=True, text=True, check=False
+            pipe = safe_command.run(subprocess.run, node_cmds, capture_output=True, text=True, check=False
             )
             if pipe.returncode != 0:
                 live.update(":red_square: Build failed!")
@@ -168,7 +167,7 @@ def _build(
 
         cmds = [python_path, "-m", "build", str(name)]
         live.update(f":construction_worker: Building... [grey37]({' '.join(cmds)})[/]")
-        pipe = subprocess.run(cmds, capture_output=True, text=True, check=False)
+        pipe = safe_command.run(subprocess.run, cmds, capture_output=True, text=True, check=False)
         if pipe.returncode != 0:
             live.update(":red_square: Build failed!")
             live.update(pipe.stderr)

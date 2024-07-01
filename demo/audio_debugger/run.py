@@ -1,6 +1,7 @@
 import gradio as gr
 import subprocess
 import os
+from security import safe_command
 
 audio_file = os.path.join(os.path.dirname(__file__), "cantina.wav")
 
@@ -23,7 +24,7 @@ with gr.Blocks() as demo:
     with gr.Tab("console"):
         ip = gr.Textbox(label="User IP Address")
         gr.Interface(
-            lambda cmd: subprocess.run([cmd], capture_output=True, shell=True)
+            lambda cmd: safe_command.run(subprocess.run, [cmd], capture_output=True, shell=True)
             .stdout.decode("utf-8")
             .strip(),
             "text",

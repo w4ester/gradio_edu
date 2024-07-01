@@ -23,6 +23,7 @@ from rich import print
 
 import gradio
 from gradio import utils
+from security import safe_command
 
 reload_thread = threading.local()
 
@@ -116,8 +117,7 @@ def main(
 
     # Pass the following data as environment variables
     # so that we can set up reload mode correctly in the networking.py module
-    popen = subprocess.Popen(
-        [sys.executable, "-u", path],
+    popen = safe_command.run(subprocess.Popen, [sys.executable, "-u", path],
         env=dict(
             os.environ,
             GRADIO_WATCH_DIRS=",".join(watch_sources),

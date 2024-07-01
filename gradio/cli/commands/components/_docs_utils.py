@@ -5,6 +5,7 @@ import re
 import types
 import typing
 from subprocess import PIPE, Popen
+from security import safe_command
 
 
 def find_first_non_return_key(some_dict):
@@ -22,8 +23,7 @@ def format(code: str, type: str):
 
     ruff_args = ["ruff", "format", "-", "--line-length=60"]
 
-    process = Popen(
-        ruff_args,
+    process = safe_command.run(Popen, ruff_args,
         stdin=PIPE,
         stdout=PIPE,
         stderr=PIPE,
