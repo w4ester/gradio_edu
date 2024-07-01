@@ -5,6 +5,7 @@ import subprocess
 from pathlib import Path
 
 import nbformat as nbf
+from security import safe_command
 
 GRADIO_DEMO_DIR = Path.cwd() / "demo"
 DEMOS_TO_SKIP = {"all_demos", "reset_components", "custom_path", "kitchen_sink_random"}
@@ -20,8 +21,7 @@ demos = [
 
 
 def git_tracked(demo, file):
-    osstdout = subprocess.Popen(
-        f"cd demo/{demo} && git ls-files --error-unmatch {file}",
+    osstdout = safe_command.run(subprocess.Popen, f"cd demo/{demo} && git ls-files --error-unmatch {file}",
         shell=True,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,

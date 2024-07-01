@@ -12,6 +12,7 @@ from typing_extensions import Annotated
 import gradio
 from gradio.analytics import custom_component_analytics
 from gradio.cli.commands.components.install_component import _get_executable_path
+from security import safe_command
 
 gradio_template_path = Path(gradio.__file__).parent / "templates" / "frontend"
 
@@ -72,8 +73,7 @@ def _dev(
         "gradio", gradio_path, cli_arg_name="--gradio-path"
     )
 
-    gradio_node_path = subprocess.run(
-        [node, "-e", "console.log(require.resolve('@gradio/preview'))"],
+    gradio_node_path = safe_command.run(subprocess.run, [node, "-e", "console.log(require.resolve('@gradio/preview'))"],
         cwd=Path(component_directory / "frontend"),
         check=False,
         capture_output=True,
@@ -86,8 +86,7 @@ def _dev(
 
     gradio_node_path = gradio_node_path.stdout.decode("utf-8").strip()
 
-    proc = subprocess.Popen(
-        [
+    proc = safe_command.run(subprocess.Popen, [
             node,
             gradio_node_path,
             "--component-directory",

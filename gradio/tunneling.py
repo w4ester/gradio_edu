@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import List
 
 import httpx
+from security import safe_command
 
 VERSION = "0.2"
 CURRENT_TUNNELS: List["Tunnel"] = []
@@ -92,8 +93,7 @@ class Tunnel:
             f"{self.remote_host}:{self.remote_port}",
             "--disable_log_color",
         ]
-        self.proc = subprocess.Popen(
-            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        self.proc = safe_command.run(subprocess.Popen, command, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
         atexit.register(self.kill)
         return self._read_url_from_tunnel_stream()
